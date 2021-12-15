@@ -1,0 +1,1 @@
+update store set last_update = current_timestamp() where store_id = 3;
