@@ -1,0 +1,14 @@
+Title: Address Allows for Invalid Phone Numbers
+
+Description: The home and mobile phone number fields in Address accepts any numerical value below 32 digits.
+
+The minimal steps necessary to reproduce: Register or login to an account, click on user's name and open my addresses, 
+click on update and enter a numerical value greater than 10 digits into either the home or mobile number fields.
+
+Environment: Microsoft Edge
+
+Expected results: Rejection of the update and error message stating the need for a valid number for the field.
+
+Assigned to: Andre Baptiste
+
+Severity: Minor

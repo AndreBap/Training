@@ -1,0 +1,15 @@
+Title: Search Location Only Returns "Not Found"
+
+Description: Any input into the "your location" bar will fail to return results from the search,
+returning with a "[input] not found" message.
+
+The minimal steps necessary to reproduce: Go to "Our Stores" listed under information, 
+type in a value in the "your location" bar and click the search button.
+
+Environment: Microsoft Edge
+
+Expected results: Returns a list of locations within the distance set by the "radius" dropdown menu.
+
+Assigned to: Andre Baptiste
+
+Severity: Minor
