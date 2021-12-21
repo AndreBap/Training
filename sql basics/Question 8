@@ -1,0 +1,5 @@
+begin;
+	insert into staff value (3, 'Joe', 'Doe', 5,null,'Joe.Doe@sakilastaff.com',2,1,'Joe',NULL, '2006-02-15 04:57:12');
+	insert into store (store_id, manager_staff_id,address_id,last_update) values (3,3,3,'2006-02-15 04:57:12');
+    update staff set store_id = 3 where staff_id = 3;
+commit

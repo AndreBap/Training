@@ -1,0 +1,4 @@
+begin;
+	update staff set store_id = 0 where staff_id = 3;
+    delete from store where store_id = 3;
+commit

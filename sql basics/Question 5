@@ -1,0 +1,2 @@
+select * from payment where customer_id =
+(select customer_id from customer where email = "NANCY.THOMAS@sakilacustomer.org");

@@ -1,0 +1,1 @@
+select film_info from actor_info where first_name = "Bob" and last_name = "Fawcett";

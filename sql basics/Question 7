@@ -1,0 +1,8 @@
+delimiter //
+create procedure get_alien_inv_ids () 
+begin
+	select inventory_id from inventory where store_id = 2 and film_id = 
+		(select film_id from film where title = "Alien Center")
+	limit 4; 
+end;//
+call get_alien_inv_ids;
