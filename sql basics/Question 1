@@ -1,1 +1,0 @@
-select * from city order by city desc limit 10;
