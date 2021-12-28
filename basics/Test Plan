@@ -1,0 +1,42 @@
+TEST PLAN
+
+Objectives
+	Automationpractice.com is a website allowing for online searching and purchasing of the owners clothing products. The goal of
+	this testing phase is the ensure the basic functionality of the site from the user's perspective. This will include functions
+	such as registration, searching, and purchase. The phase will end with these functions being operational.
+	
+Scope
+	The scope of the test phase will include the following:
+	Login and Registration
+	Searching for products using different criteria
+	Cart and Wishlist functionality
+	Online payment process
+	User account and order history
+	Store locator
+	
+Assumptions
+	These tests will assume that owner side functionality is either already implemented or has been populated,
+	leaving items within the store to be searched and purchased.
+
+Risks
+	Delays from high Traffic: medium, there may be delays from high user traffic from multiple testers accessing the site
+	this can be mitigated by distributing the testing time to lower traffic.
+	
+Test Approach
+	This test plan will use a combination of manual and automated tests, using tags to ensure that the correct page or object is displayed.
+	The manual testing will be exploratory, prioritizing the most relevant functions of the site, such as purchasing first.
+	
+Test Environment
+	The website will be tested using the latest updates from Chrome and Microsoft Edge. The automated testing will be conducted using the
+	Eclipse IDE.
+	
+Test Schedule
+	Test Planning
+	Automated Test Development
+	Automated Testing
+	Exploratory Manual Testing
+	
+Deliverables
+	Test Plan: Quality Assurance Lead
+	Automated Tests: Quality Assurance Lead
+	Test Results: Development Lead
