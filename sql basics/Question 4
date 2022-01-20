@@ -1,1 +1,0 @@
-select count(store_id) from customer where store_id = 1;
