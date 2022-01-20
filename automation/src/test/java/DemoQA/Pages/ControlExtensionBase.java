@@ -1,4 +1,4 @@
-package DemoQA.Pages;
+
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,5 +16,4 @@ public abstract class ControlExtensionBase {
 	public boolean isSelected(WebElement element) {
 		return element.isSelected();
 	}
-
 }
