@@ -1,0 +1,21 @@
+1.
+	CSS:#userName
+	Xpath://input[@id='userName']
+2.
+	CSS:button.btn.btn-primary
+	Xpath://button
+3.
+	CSS:footer span
+	Xpath://div[@class='rt-td'] [text()='Vega']
+4.
+	CSS:#nav>li
+	Xpath://input[@id='impressiveRadio']/parent::div
+5.
+	CSS:option[value='4']
+	Xpath://label[@for='impressiveRadio']/ancestor::div
+6.
+	CSS:document.getElementById("sliderValue").value = 80;
+	Xpath://label[@for='impressiveRadio']/parent::div/parent::div/div[2]/label
+7.
+	CSS:document.getElementById("userName").value = "New Value";
+	Xpath://button[contains(text(),'Click')]
