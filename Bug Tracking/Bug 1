@@ -1,0 +1,15 @@
+Title:Cart Empties on Logout
+
+Description:When logging out of an account, 
+any items in the cart will have been removed when logging back in.
+
+The minimal steps necessary to reproduce:Log into an account, 
+place any item into the cart, log off of account, 
+log back onto the same account, open cart.
+
+Environment: Microsoft Edge
+
+Expected results:Items placed into cart to be retained between logins.
+
+Assigned to: Andre Baptiste
+Severity: Minor
