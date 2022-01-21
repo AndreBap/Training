@@ -1,5 +1,7 @@
 package framework;
 
+import java.io.FileNotFoundException;
+
 public class DriverManagerFactory {
 
 	public static DriverManager getManager(String browser) {
@@ -8,8 +10,11 @@ public class DriverManagerFactory {
 		if(browser.equalsIgnoreCase("chrome")) {
 			manager = new ChromeDriverManager();
 		}
-		else {
+		else if(browser.equalsIgnoreCase("edge")) {
 			manager = new EdgeDriverManager();
+		}
+		else {
+			throw new FileNotFoundException();  
 		}
 		return manager;
 	}
