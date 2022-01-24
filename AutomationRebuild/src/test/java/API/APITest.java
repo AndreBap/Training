@@ -5,17 +5,11 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import static org.junit.Assert.assertNotNull;
+import static org.testng.Assert.assertEquals;
 
 import io.restassured.RestAssured;
-import io.restassured.common.mapper.TypeRef;
-import io.restassured.mapper.*;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBodyExtractionOptions;
 import io.restassured.specification.RequestSpecification;
 
 
@@ -89,38 +83,23 @@ public class APITest {
       RequestSpecification request = RestAssured.given();
       Response response = request.get("/api/users/2");
 
-      String jsonString = response.asString();
-      Map<String, Object> data = JsonPath.from(jsonString).get("data");
+      User users = response.getBody().jsonPath().getObject("data", User.class);
       
-      //System.out.println(RestAssured.get("https://reqres.in/api/users/2/data").as(TypeRef<User>));
-      
-      //User user = RestAssured.get("https://reqres.in/api/users/2").jsonPath().getMap("data");
-      //var user =  RestAssured.get("https://reqres.in/api/users/2").as(new TypeRef<User>() {});
-      System.out.println(data);
-      System.out.println(response.getBody().jsonPath().getMap("data"));
-      //System.out.println(user.print()); 
-      //User user = (User) response.getBody().jsonPath().getMap("data");
-      
-      //System.out.println(user.print());
-      User users = RestAssured.get("https://reqres.in/api/users/2/data").as(User.class);
-      System.out.println();
-
+      assertEquals(users.getId(),"2");
+      assertEquals(users.getEmail(),"janet.weaver@reqres.in");
+      assertEquals(users.getFirst_name(),"Janet");
+      assertEquals(users.getLast_name(),"Weaver");
+      assertEquals(users.getAvatar(),"https://reqres.in/img/faces/2-image.jpg");
   }
   @Test
   public void canDeserializeMany() { 	  
 	  RestAssured.baseURI = "https://reqres.in";
       RequestSpecification request = RestAssured.given();
       Response response = request.get("/api/users?page=2");
-
-      String jsonString = response.asString();
-      //System.out.println(JsonPath.from(jsonString).get("data"));
-      List<Map<String, Object>> data = JsonPath.from(jsonString).get("data");
+            
+      User[] users = response.getBody().jsonPath().getObject("data", User[].class);
       
-      System.out.println(data.toString());
-      
-      //List<User> users = RestAssured.get("https://reqres.in/api/users?page=2").as(new TypeRef<List<User>>() {});
-      User[] users = RestAssured.get("https://reqres.in/api/users?page=2").as(User[].class);
-      System.out.println();
+      assertNotNull(users);
   }
 
 }
