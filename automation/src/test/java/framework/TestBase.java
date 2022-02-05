@@ -1,3 +1,5 @@
+package framework;
+
 
 
 import java.nio.file.Path;
@@ -28,7 +30,7 @@ public abstract class TestBase {
 	}
 	
 	private void launchChromeDriver() {
-		Path resourceDirectory = Paths.get("src","test","resources");
+		Path resourceDirectory = Paths.get("automation","src","main","resources");
 		String absolutePath = resourceDirectory.toFile().getAbsolutePath();
 		Path driverFile = Paths.get(absolutePath, "chromedriver.exe");
 		
