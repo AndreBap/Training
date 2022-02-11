@@ -1,11 +1,16 @@
 package API;
 
+import static org.testng.AssertJUnit.assertNotNull;
+
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
 import org.json.simple.JSONObject;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertNotNull;
 import static org.testng.Assert.assertEquals;
 
 import io.restassured.RestAssured;
@@ -85,11 +90,11 @@ public class APITest {
 
       User users = response.getBody().jsonPath().getObject("data", User.class);
       
-      assertEquals(users.getId(),"2");
-      assertEquals(users.getEmail(),"janet.weaver@reqres.in");
-      assertEquals(users.getFirst_name(),"Janet");
-      assertEquals(users.getLast_name(),"Weaver");
-      assertEquals(users.getAvatar(),"https://reqres.in/img/faces/2-image.jpg");
+      AssertJUnit.assertEquals(users.getId(),"2");
+      AssertJUnit.assertEquals(users.getEmail(),"janet.weaver@reqres.in");
+      AssertJUnit.assertEquals(users.getFirst_name(),"Janet");
+      AssertJUnit.assertEquals(users.getLast_name(),"Weaver");
+      AssertJUnit.assertEquals(users.getAvatar(),"https://reqres.in/img/faces/2-image.jpg");
   }
   @Test
   public void canDeserializeMany() { 	  
@@ -101,5 +106,12 @@ public class APITest {
       
       assertNotNull(users);
   }
-
+  @BeforeSuite  
+  public void before_suite(){  
+      System.out.println("before method for suiteB");  
+  }  
+  @AfterSuite
+  public void after_suite() {
+	  System.out.println("after method for suiteB");
+  }
 }
