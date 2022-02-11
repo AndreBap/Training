@@ -7,21 +7,27 @@ import java.sql.*;
 
 public class JDBCTest {
 	@Test
-	public void problem1() {
+	public void problem1() throws SQLException {
 		final String QUERY = "SELECT city FROM sakila.city ORDER BY city DESC LIMIT 10";
 		String[] cities = new String[10];
 		int index = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY)) {
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(QUERY);
 			while (rs.next()) {
 				cities[index++] = rs.getString("city");
 			}
 		} catch (SQLException e) {
 			System.out.println("problem 1 error");
 			e.printStackTrace();
+		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
 		}
 
 		assertEquals(cities[0], "Ziguinchor");
@@ -36,13 +42,14 @@ public class JDBCTest {
 		assertEquals(cities[9], "Yuzhou");
 	}
 	@Test
-	public void problem2() {
+	public void problem2() throws SQLException {
 		final String QUERY = "SELECT title FROM sakila.film WHERE title LIKE '%airplane%'";
 		String[] titles = new String[2];
 		int index = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
+
+		try (
 				Statement stmt = connection.createStatement();
 				ResultSet rs = stmt.executeQuery(QUERY)) {
 			while (rs.next()) {
@@ -52,19 +59,25 @@ public class JDBCTest {
 			System.out.println("problem 2 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(titles[0], "AIRPLANE SIERRA");
 		assertEquals(titles[1], "RAGING AIRPLANE");
 	}
 	@Test
-	public void problem3() {
+	public void problem3() throws SQLException {
 		final String QUERY = "SELECT MAX(amount) FROM payment";
 		double amount = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY)) {
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(QUERY);
 			while (rs.next()) {
 				amount = rs.getDouble("MAX(amount)");
 			}
@@ -72,18 +85,24 @@ public class JDBCTest {
 			System.out.println("problem 3 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(amount, 11.99);
 	}
 	@Test
-	public void problem4() {
+	public void problem4() throws SQLException {
 		final String QUERY = "SELECT COUNT(*) FROM customer AS c WHERE c.store_id = 1";
 		int customers = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY)) {
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(QUERY);
 			while (rs.next()) {
 				customers = rs.getInt("COUNT(*)");
 			}
@@ -91,19 +110,25 @@ public class JDBCTest {
 			System.out.println("problem 4 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(customers, 326);
 	}
 	@Test
-	public void problem5() {
+	public void problem5() throws SQLException {
 		final String QUERY = "SELECT p.* FROM payment AS p JOIN customer AS c ON c.customer_id = p.customer_id WHERE c.email = 'NANCY.THOMAS@sakilacustomer.org'";
 		int[] payIDs = new int[28];
 		int index = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY)) {
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(QUERY);
 			while (rs.next()) {
 				payIDs[index++] = rs.getInt("payment_id");
 			}
@@ -111,19 +136,25 @@ public class JDBCTest {
 			System.out.println("problem 5 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(payIDs[0], 303);
 		assertEquals(payIDs[27], 330);
 	}
 	@Test
-	public void problem6() {
+	public void problem6() throws SQLException {
 		final String QUERY = "SELECT * FROM film_list WHERE actors LIKE '%BOB FAWCETT%';";
 		int numberOfResults = 0;
-
-		try (Connection connection = DriverManager
+		Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				Statement stmt = connection.createStatement();
-				ResultSet rs = stmt.executeQuery(QUERY)) {
+
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(QUERY);
 			while (rs.next()) {
 				numberOfResults++;
 			}
@@ -131,23 +162,27 @@ public class JDBCTest {
 			System.out.println("problem 6 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(numberOfResults, 25);
 	}
 	@Test
-	public void problem7() {
+	public void problem7() throws SQLException {
 		final String QUERY = "SELECT f.film_id FROM film AS f WHERE f.title = 'Alien Center'";
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
 	    int[] invIDs = new int[4];
 	    int index = 0;
-	    
-		try (Connection connection = DriverManager
+	    Connection connection = DriverManager
 				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
-				CallableStatement statement = connection.prepareCall("{call film_in_stock(?, 2, ?)}");
-				Statement stmt = connection.createStatement();
-				ResultSet filmID = stmt.executeQuery(QUERY);
-				) {
+	    
+		try {
+			Statement stmt = connection.createStatement();
+			ResultSet filmID = stmt.executeQuery(QUERY);
 			pstmt = connection.prepareCall("{call film_in_stock(?, 2, ?)}");
 			filmID.next();
 			pstmt.setInt(1, filmID.getInt(1));
@@ -160,6 +195,11 @@ public class JDBCTest {
 			System.out.println("problem 7 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 
 		assertEquals(invIDs[0], 73);
 		assertEquals(invIDs[1], 74);
@@ -167,12 +207,13 @@ public class JDBCTest {
 		assertEquals(invIDs[3], 76);
 }
 	@Test
-	public void problem8() {
+	public void problem8() throws SQLException {
 		int ids = 0;
 		ResultSet rs = null;
+		Connection connection = DriverManager
+				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
 
-		try (Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");) {
+		try {
 				connection.setAutoCommit(false);
 				PreparedStatement stmt = connection.prepareStatement("INSERT INTO staff (first_name, last_name, address_id, email, store_id, `active`, username) \n"
 						+ "VALUES (\"John\", \"Doe\", \"18\", \"rando@gmail.com\", \"2\", \"1\", \"newJohn\")",Statement.RETURN_GENERATED_KEYS);
@@ -214,14 +255,20 @@ public class JDBCTest {
 			System.out.println("problem 8 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 	}
 	@Test
-	public void problem9() {
+	public void problem9() throws SQLException {
 		PreparedStatement stmt;
 		int rowsAffected = 0;
+		Connection connection = DriverManager
+				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
 
-		try (Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");) {
+		try {
 				connection.setAutoCommit(false);
 				stmt = connection.prepareStatement("UPDATE store AS s\n"
 						+ "INNER JOIN address AS a ON a.address_id = s.address_id\n"
@@ -233,16 +280,22 @@ public class JDBCTest {
 			System.out.println("problem 9 error");
 			e.printStackTrace();
 		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
+		}
 		
 		assertEquals(rowsAffected, 1);
 	}
 	@Test
-	public void problem10() {
+	public void problem10() throws SQLException {
 		PreparedStatement stmt;
 		int rowsAffected = 0;
+		Connection connection = DriverManager
+				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");
 
-		try (Connection connection = DriverManager
-				.getConnection("jdbc:mysql://localhost:3306/sakila?useSSL=false", "root", "password");) {
+		try {
 				connection.setAutoCommit(false);
 				stmt = connection.prepareStatement("SET SQL_SAFE_UPDATES = 0;");
 				stmt.executeUpdate();
@@ -257,6 +310,11 @@ public class JDBCTest {
 		} catch (SQLException e) {
 			System.out.println("problem 10 error");
 			e.printStackTrace();
+		}
+		finally {
+			if(connection != null) {
+				connection.close();
+			}
 		}
 		
 		assertEquals(rowsAffected, 1);
